@@ -1,31 +1,11 @@
 import './styles/sequencer.css';
 // import './styles/drum.css';
 
-import Drum from './Drum';
 import Clock from './Clock';
+import Drums from './setupDrums';
+import audioContext from './setupAudioContext';
 
-function createAudioContext() {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    return new AudioContext();
-}
-    
-const audioContext = createAudioContext();
-if (audioContext) {
-    console.log('Audio Context Created', audioContext);
-}
-
-const Kick= new Drum('/sounds/909-kick.wav', audioContext, document.getElementById('kick'));
-const Snare = new Drum('/sounds/909-snare.wav', audioContext, document.getElementById('snare'));
-
-
-const drums = [Kick, Snare];
-
-let currentDrum = Kick;
-
-function setCurrentDrum(newDrum) {
-    currentDrum = newDrum;
-    renderSequencerPads();
-}
+let currentDrum = Drums[0];
 
 function renderSequencerPads() {
     sequencerPads.forEach((pad, i) => {
@@ -37,12 +17,11 @@ function renderSequencerPads() {
     });
 }
 
-document.getElementById('select-kick').addEventListener('click', () => {
-    setCurrentDrum(Kick);
-});
-
-document.getElementById('select-snare').addEventListener('click', () => {
-    setCurrentDrum(Snare);
+document.querySelectorAll('.drum__select-btn').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+        currentDrum = Drums[i];
+        renderSequencerPads();
+    });
 });
 
 const sequencerPads = document.querySelectorAll('.sequencer__beat');
@@ -55,8 +34,9 @@ sequencerPads.forEach((pad, i) => {
 });
 
 function audioUpdate(beatNumber) {
-    Kick.shouldPlay(beatNumber);
-    Snare.shouldPlay(beatNumber);
+    Drums.forEach(drum => {
+        drum.shouldPlay(beatNumber);
+    });
 }
 
 let prevNote = 15;
