@@ -1,0 +1,19 @@
+ul {
+    list-style: none;
+    padding: 0;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.sequencer__beat {
+    cursor: pointer;
+}
+
+.will-play {
+    border: solid blue 1px;
+}
+
+.playing {
+    box-shadow: 0 0 10px yellow;
+}

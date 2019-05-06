@@ -1,3 +1,6 @@
+import './styles/sequencer.css';
+// import './styles/drum.css';
+
 import Drum from './Drum';
 import Clock from './Clock';
 
@@ -11,13 +14,9 @@ if (audioContext) {
     console.log('Audio Context Created', audioContext);
 }
 
-const beatReadout = document.getElementById('beatReadout')
+const Kick= new Drum('/sounds/909-kick.wav', audioContext, document.getElementById('kick'));
+const Snare = new Drum('/sounds/909-snare.wav', audioContext, document.getElementById('snare'));
 
-const Kick= new Drum('/sounds/909-kick.wav', audioContext, null);
-const Snare = new Drum('/sounds/909-snare.wav', audioContext, null);
-
-document.getElementById('play-kick').addEventListener('mousedown', Kick.play);
-document.getElementById('play-snare').addEventListener('mousedown', Snare.play);
 
 const drums = [Kick, Snare];
 
@@ -25,23 +24,24 @@ let currentDrum = Kick;
 
 function setCurrentDrum(newDrum) {
     currentDrum = newDrum;
+    renderSequencerPads();
+}
 
+function renderSequencerPads() {
     sequencerPads.forEach((pad, i) => {
         if (currentDrum.sequence[i]) {
-            pad.style.border = 'solid 1px blue';
+            pad.classList.add('will-play');
         } else {
-            pad.style.border = 'none';
+            pad.classList.remove('will-play');
         }
     });
 }
 
-document.getElementById('choose-kick').addEventListener('click', () => {
-    // currentDrum = Kick;
+document.getElementById('select-kick').addEventListener('click', () => {
     setCurrentDrum(Kick);
 });
 
-document.getElementById('choose-snare').addEventListener('click', () => {
-    // currentDrum = Snare;
+document.getElementById('select-snare').addEventListener('click', () => {
     setCurrentDrum(Snare);
 });
 
@@ -50,7 +50,7 @@ const sequencerPads = document.querySelectorAll('.sequencer__beat');
 sequencerPads.forEach((pad, i) => {
     pad.addEventListener('click', () => {
         currentDrum.setSequence(i);
-        console.log(currentDrum.sequence);
+        renderSequencerPads();
     });
 });
 
@@ -62,10 +62,9 @@ function audioUpdate(beatNumber) {
 let prevNote = 15;
 
 function uiUpdate(drawNote) {
-    beatReadout.textContent = drawNote;
 
-    sequencerPads[drawNote].style.color = 'green';
-    sequencerPads[prevNote].style.color = 'black';
+    sequencerPads[drawNote].classList.add('playing');
+    sequencerPads[prevNote].classList.remove('playing');
 
     prevNote = drawNote;
 }
@@ -74,4 +73,8 @@ const MainClock = new Clock(audioUpdate, uiUpdate, audioContext);
 
 document.querySelector('.start-btn').addEventListener('click', MainClock.start);
 document.querySelector('.stop-btn').addEventListener('click', MainClock.stop);
+
+document.querySelector('.tempo__slider').addEventListener('input', (e) => {
+    MainClock.setTempo(e.target.value);
+});
 

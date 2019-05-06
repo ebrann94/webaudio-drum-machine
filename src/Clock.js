@@ -26,10 +26,15 @@ class Clock {
         this.stop = this.stop.bind(this);
     }
 
+    setTempo(newTempo) {
+        this.tempo = newTempo;
+    }
+
     start() {
         this.isPlaying = true;
         this.currentNote = 0;
         this.nextNoteTime = this.audioContext.currentTime + this.scheduleAheadTime;
+        this.notesInQueue = [];
         this.scheduler();
         requestAnimationFrame(this.draw);
     }

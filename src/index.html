@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drum Machine</title>
+</head>
+<body>
+    <h1>From Template</h1>
+    <div class="tempo-controls">
+        <label for="tempo-slider">Tempo: </label>
+        <input type="range" min="0" max="200" step="1" value="128" name="tempo-slider" class="tempo__slider">
+    </div>
+    <div id="kick" class="drum">
+        <p>Kick</p>
+        <button id="play-kick" class="drum__play-btn">Play</button>
+        <label for="gain-slider">Gain: </label>
+        <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
+        <label for="pitch-slider">Pitch: </label>
+        <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
+        <button id="select-kick" class="drum__select-btn">Select</button>
+    </div>
+    <div id="snare" class="drum">
+        <p>Snare</p>
+        <button id="play-snare" class="drum__play-btn">Play</button>
+        <label for="gain-slider">Gain: </label>
+        <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
+        <label for="pitch-slider">Pitch: </label>
+        <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
+        <button id="select-snare" class="drum__select-btn">Select</button>
+    </div>
+    <ul>
+        <li class="sequencer__beat">1</li>
+        <li class="sequencer__beat">2</li>
+        <li class="sequencer__beat">3</li>
+        <li class="sequencer__beat">4</li>
+        <li class="sequencer__beat">5</li>
+        <li class="sequencer__beat">6</li>
+        <li class="sequencer__beat">7</li>
+        <li class="sequencer__beat">8</li>
+        <li class="sequencer__beat">9</li>
+        <li class="sequencer__beat">10</li>
+        <li class="sequencer__beat">11</li>
+        <li class="sequencer__beat">12</li>
+        <li class="sequencer__beat">13</li>
+        <li class="sequencer__beat">14</li>
+        <li class="sequencer__beat">15</li>
+        <li class="sequencer__beat">16</li>
+    </ul>
+    <button class="start-btn">Start</button>
+    <button class="stop-btn">Stop</button>
+</body>
+</html>

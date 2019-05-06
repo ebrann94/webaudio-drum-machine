@@ -1,5 +1,5 @@
 class Drum {
-    constructor(audioFilename, audioContext) {
+    constructor(audioFilename, audioContext, DOMElement) {
         this.audioBuffer;
         this.playBackSpeed = 1.0;
         this.audioContext = audioContext
@@ -25,7 +25,22 @@ class Drum {
 
         this.sequence = Array(16).fill(false);
         
+        // Bind the play function before using as event listener callback
         this.play = this.play.bind(this);
+
+        const playBtn = DOMElement.querySelector('.drum__play-btn');
+        playBtn.addEventListener('click', this.play);
+
+        const gainSlider = DOMElement.querySelector('.drum__gain-slider');
+        gainSlider.addEventListener('input', (e) => {
+            this.setGain(e.target.value);
+        });
+
+        const pitchSlider =DOMElement.querySelector('.drum__pitch-slider');
+        pitchSlider.addEventListener('input', e => {
+            this.playBackSpeed = e.target.value;
+        });
+        
     }
 
     setGain(newGain) {
