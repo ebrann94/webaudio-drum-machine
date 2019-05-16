@@ -1,30 +1,34 @@
+import './styles/base.css';
 import './styles/sequencer.css';
-// import './styles/drum.css';
+import './styles/drum.css';
 
 import Clock from './Clock';
 import Drums from './setupDrums';
 import audioContext from './setupAudioContext';
 
-let currentDrum = Drums[0];
 
+let currentDrum = Drums[0];
+currentDrum.DOMElement.style.background = 'lightgreen';
+
+export function setCurrentDrum() {
+    currentDrum.DOMElement.style.background = 'none';
+    currentDrum = this;
+    currentDrum.DOMElement.style.background = 'lightgreen';
+    renderSequencerPads();
+}
+
+const sequencerPads = document.querySelectorAll('.pad');
+const padBtns = document.querySelectorAll('.pad__btn');
+// Rerenders the sequencers pads to show the current drum's sequence
 function renderSequencerPads() {
     sequencerPads.forEach((pad, i) => {
         if (currentDrum.sequence[i]) {
-            pad.classList.add('will-play');
+            padBtns[i].classList.add('pad__btn--will-play');
         } else {
-            pad.classList.remove('will-play');
+            padBtns[i].classList.remove('pad__btn--will-play');
         }
     });
 }
-
-document.querySelectorAll('.drum__select-btn').forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-        currentDrum = Drums[i];
-        renderSequencerPads();
-    });
-});
-
-const sequencerPads = document.querySelectorAll('.sequencer__beat');
 
 sequencerPads.forEach((pad, i) => {
     pad.addEventListener('click', () => {
@@ -33,18 +37,20 @@ sequencerPads.forEach((pad, i) => {
     });
 });
 
+const indicators = document.querySelectorAll('.pad__indicator');
+
 function audioUpdate(beatNumber) {
     Drums.forEach(drum => {
         drum.shouldPlay(beatNumber);
     });
 }
 
-let prevNote = 15;
 
+let prevNote = 15;
 function uiUpdate(drawNote) {
 
-    sequencerPads[drawNote].classList.add('playing');
-    sequencerPads[prevNote].classList.remove('playing');
+    indicators[drawNote].classList.add('pad__indicator--playing');
+    indicators[prevNote].classList.remove('pad__indicator--playing');
 
     prevNote = drawNote;
 }

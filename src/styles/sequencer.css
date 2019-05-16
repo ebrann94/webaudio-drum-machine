@@ -6,14 +6,44 @@ ul {
     justify-content: space-evenly;
 }
 
-.sequencer__beat {
+.pad {
     cursor: pointer;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.will-play {
-    border: solid blue 1px;
+.pad__num {
+    margin: 8px 0;
 }
 
-.playing {
-    box-shadow: 0 0 10px yellow;
+.pad__indicator {
+    height: 8px;
+    width: 8px;
+
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    /* background: green; */
+}
+
+.pad__indicator--playing {
+    background: green;
+}
+
+.pad__btn {
+    width: 32px;
+    height: 32px;
+
+    margin: 16px 0;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.pad__btn--will-play {
+    background: black;
 }

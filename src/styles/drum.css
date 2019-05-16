@@ -1,3 +1,29 @@
+.drums-container {
+    display: flex;
+    justify-content: center;
+}
+
 .drum {
+    margin: 16px;
+    padding: 16px;
+
     border: black 1px solid;
+    border-radius: 8px;
+
+    text-align: center;
+}
+
+.drum__controls {
+    display: flex;
+    flex-direction: column;
+
+    /* text-align: left; */
+}
+
+.drum__slider-wrapper {
+    margin: 16px 0;
+}
+
+.drum__play-btn, .drum__select-btn {
+    margin: 8px 0;
 }
