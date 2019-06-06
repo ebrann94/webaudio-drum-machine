@@ -2,9 +2,10 @@ import './styles/base.css';
 import './styles/sequencer.css';
 import './styles/drum.css';
 
+import './setupAudioContext';
 import Clock from './Clock';
 import Drums from './setupDrums';
-import audioContext from './setupAudioContext';
+
 
 
 let currentDrum = Drums[0];
@@ -19,7 +20,7 @@ export function setCurrentDrum() {
 
 const sequencerPads = document.querySelectorAll('.pad');
 const padBtns = document.querySelectorAll('.pad__btn');
-// Rerenders the sequencers pads to show the current drum's sequence
+// Re-renders the sequencers pads to show the current drum's sequence
 function renderSequencerPads() {
     sequencerPads.forEach((pad, i) => {
         if (currentDrum.sequence[i]) {
@@ -38,14 +39,6 @@ sequencerPads.forEach((pad, i) => {
 });
 
 const indicators = document.querySelectorAll('.pad__indicator');
-
-function audioUpdate(beatNumber) {
-    Drums.forEach(drum => {
-        drum.shouldPlay(beatNumber);
-    });
-}
-
-
 let prevNote = 15;
 function uiUpdate(drawNote) {
 
@@ -55,12 +48,41 @@ function uiUpdate(drawNote) {
     prevNote = drawNote;
 }
 
+function audioUpdate(beatNumber) {
+    Drums.forEach(drum => {
+        drum.shouldPlay(beatNumber);
+    });
+}
+
+
+
 const MainClock = new Clock(audioUpdate, uiUpdate, audioContext);
 
-document.querySelector('.start-btn').addEventListener('click', MainClock.start);
-document.querySelector('.stop-btn').addEventListener('click', MainClock.stop);
+const startBtn = document.querySelector('.start-btn');
+startBtn.addEventListener('click', (e) => {
+    MainClock.start();
+    e.target.blur();
+});
 
+const stopBtn = document.querySelector('.stop-btn');
+stopBtn.addEventListener('click', (e) => {
+    MainClock.stop();
+    e.target.blur();
+});
+
+window.addEventListener('keyup', (e) => {
+    if (e.code === 'Space') {
+        if (MainClock.isPlaying) {
+            MainClock.stop();
+        } else {
+            MainClock.start();
+        }
+    }
+});
+
+const tempoReadout = document.querySelector('.tempo-readout');
 document.querySelector('.tempo__slider').addEventListener('input', (e) => {
     MainClock.setTempo(e.target.value);
+    tempoReadout.textContent = e.target.value + ' bpm';
 });
 

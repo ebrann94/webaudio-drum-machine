@@ -1,3 +1,3 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
-export default new AudioContext();
+window.audioContext = new AudioContext();

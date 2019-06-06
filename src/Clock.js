@@ -31,6 +31,9 @@ class Clock {
     }
 
     start() {
+        if (this.audioContext.state == 'suspended') {
+            this.audioContext.resume();
+        }
         this.isPlaying = true;
         this.currentNote = 0;
         this.nextNoteTime = this.audioContext.currentTime + this.scheduleAheadTime;

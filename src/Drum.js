@@ -1,8 +1,6 @@
 class Drum {
     constructor(audioFilename, audioContext, DOMElement, setCurrentDrum) {
-        this.audioBuffer;
-        this.playBackSpeed = 1.0;
-        this.audioContext = audioContext
+        this.audioContext = audioContext;
 
         fetch(audioFilename)
             .then(res => {
@@ -17,11 +15,15 @@ class Drum {
                 }, err => {
                     console.log('Unable to create audiobuffer' + err);
                 });
-                
+            })
+            .catch(error => {
+                console.log(error);
             });
         
         this.gainNode = this.audioContext.createGain();
         this.gainNode.connect(this.audioContext.destination);
+
+        this.playBackSpeed = 1.0;
 
         this.sequence = Array(16).fill(false);
         
