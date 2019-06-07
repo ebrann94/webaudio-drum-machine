@@ -20,12 +20,12 @@ Clock.prototype.setTempo = function(newTempo) {
 };
 
 Clock.prototype.start = function() {
-    if (audioContext.state === 'suspended') {
-        audioContext.resume();
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
     }
     this.isPlaying = true;
     this.currentNote = 0;
-    this.nextNoteTime = audioContext.currentTime + this.scheduleAheadTime;
+    this.nextNoteTime = audioCtx.currentTime + this.scheduleAheadTime;
     this.notesInQueue = [];
     this.scheduler();
     requestAnimationFrame(this.draw.bind(this));
@@ -53,7 +53,7 @@ Clock.prototype.scheduleNote = function(beatNumber, time) {
 };
 
 Clock.prototype.scheduler = function() {
-    while (this.nextNoteTime < audioContext.currentTime + this.scheduleAheadTime) {
+    while (this.nextNoteTime < audioCtx.currentTime + this.scheduleAheadTime) {
         this.scheduleNote(this.currentNote, this.nextNoteTime);
         this.nextNote();
     }
@@ -65,7 +65,7 @@ Clock.prototype.scheduler = function() {
 
 Clock.prototype.draw = function() {
     let drawNote = this.lastNoteDrawn;
-    let currentTime = audioContext.currentTime;
+    let currentTime = audioCtx.currentTime;
 
     while (this.notesInQueue.length && this.notesInQueue[0].time < currentTime) {
         drawNote = this.notesInQueue[0].note;

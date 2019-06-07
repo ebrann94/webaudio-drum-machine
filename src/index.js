@@ -2,27 +2,22 @@ import './styles/base.css';
 import './styles/sequencer.css';
 import './styles/drum.css';
 
-import './setupAudioContext';
-
+import createAudioContext from './setupAudioContext';
+import CurrentDrum from './CurrentDrum';
 import Clock from './Clock';
-import Drums from './setupDrums';
+import setupDrums from './setupDrums';
 
-let currentDrum = Drums[0];
-currentDrum.DOMElement.style.background = 'lightgreen';
+window.audioCtx = createAudioContext();
 
-export function setCurrentDrum() {
-    currentDrum.DOMElement.style.background = 'none';
-    currentDrum = this;
-    currentDrum.DOMElement.style.background = 'lightgreen';
-    renderSequencerPads();
-}
+const Drums = setupDrums();
+window.currentDrum = new CurrentDrum(Drums[0]);
 
 const sequencerPads = document.querySelectorAll('.pad');
 const padBtns = document.querySelectorAll('.pad__btn');
 // Re-renders the sequencers pads to show the current drum's sequence
-function renderSequencerPads() {
+export function renderSequencerPads() {
     sequencerPads.forEach((pad, i) => {
-        if (currentDrum.sequence[i]) {
+        if (currentDrum.drum.sequence[i]) {
             padBtns[i].classList.add('pad__btn--will-play');
         } else {
             padBtns[i].classList.remove('pad__btn--will-play');
@@ -32,7 +27,7 @@ function renderSequencerPads() {
 
 sequencerPads.forEach((pad, i) => {
     pad.addEventListener('click', () => {
-        currentDrum.setSequence(i);
+        currentDrum.drum.setSequence(i);
         renderSequencerPads();
     });
 });

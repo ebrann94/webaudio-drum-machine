@@ -13,6 +13,13 @@
     text-align: center;
 }
 
+.drum--active {
+    /*background: teal;*/
+
+    border: solid 2px teal;
+    box-shadow: 0 0 8px teal;
+}
+
 .drum__controls {
     display: flex;
     flex-direction: column;

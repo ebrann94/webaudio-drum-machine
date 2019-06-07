@@ -1,3 +1,6 @@
-const AudioContext = window.AudioContext || window.webkitAudioContext;
+const createAudioContext = () => {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    return new AudioContext();
+};
 
-window.audioContext = new AudioContext();
+export default createAudioContext;

@@ -25,13 +25,14 @@ ul {
     width: 8px;
 
     border-radius: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid white;
 
     /* background: green; */
 }
 
 .pad__indicator--playing {
-    background: green;
+    background: yellow;
+    box-shadow: 0 0 16px yellow;
 }
 
 .pad__btn {
@@ -40,10 +41,10 @@ ul {
 
     margin: 16px 0;
 
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid white;
     border-radius: 4px;
 }
 
 .pad__btn--will-play {
-    background: black;
+    background: white;
 }

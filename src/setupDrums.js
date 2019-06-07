@@ -1,9 +1,12 @@
 import Drum from './Drum';
-import { setCurrentDrum } from './index';
 
 // const Kick = new Drum('/sounds/909-kick.wav', audioContext, document.getElementById('kick'), setCurrentDrum);
-const Kick = new Drum('/sounds/909-kick.wav', document.getElementById('kick'), setCurrentDrum);
-const Snare = new Drum('/sounds/909-snare.wav', document.getElementById('snare'), setCurrentDrum);
-const HiHat = new Drum('/sounds/909-hihat.wav', document.getElementById('hihat'), setCurrentDrum);
+function setupDrums() {
+    const Kick = new Drum('/sounds/909-kick.wav', document.getElementById('kick'));
+    const Snare = new Drum('/sounds/909-snare.wav', document.getElementById('snare'));
+    const HiHat = new Drum('/sounds/909-hihat.wav', document.getElementById('hihat'));
 
-export default [Kick, Snare, HiHat];
+    return [Kick, Snare, HiHat];
+}
+
+export default setupDrums;

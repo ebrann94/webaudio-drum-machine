@@ -1,7 +1,7 @@
-function Drum(audioFilename, DOMElement, setCurrentDrum) {
+function Drum(audioFilename, DOMElement) {
     // console.log(audioContext);
-    this.gainNode = audioContext.createGain();
-    this.gainNode.connect(audioContext.destination);
+    this.gainNode = audioCtx.createGain();
+    this.gainNode.connect(audioCtx.destination);
 
     this.playbackSpeed = 1.0;
     this.sequence = Array(16).fill(false);
@@ -25,10 +25,9 @@ function Drum(audioFilename, DOMElement, setCurrentDrum) {
         this.playbackSpeed = e.target.value;
     });
 
-    setCurrentDrum = setCurrentDrum.bind(this);
     const selectBtn = DOMElement.querySelector('.drum__select-btn');
     selectBtn.addEventListener('click', () => {
-        setCurrentDrum();
+        currentDrum.set(this);
     });
 }
 
@@ -37,8 +36,8 @@ Drum.prototype.setGain = function(newGain) {
 };
 
 Drum.prototype.play = function() {
-    audioContext.resume();
-    const source = audioContext.createBufferSource();
+    audioCtx.resume();
+    const source = audioCtx.createBufferSource();
     source.buffer = this.audioBuffer;
     source.playbackRate.value = this.playbackSpeed;
     source.connect(this.gainNode);
@@ -63,7 +62,7 @@ Drum.prototype.fetchAudioFile = function(fileURL) {
             }
             return res.arrayBuffer();
         })
-        .then(rawBuffer => audioContext.decodeAudioData(rawBuffer))
+        .then(rawBuffer => audioCtx.decodeAudioData(rawBuffer))
         .then(decodedData => this.audioBuffer = decodedData)
         .catch(error => {
             console.log(error);
