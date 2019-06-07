@@ -1,80 +1,73 @@
-class Drum {
-    constructor(audioFilename, audioContext, DOMElement, setCurrentDrum) {
-        this.audioContext = audioContext;
+function Drum(audioFilename, DOMElement, setCurrentDrum) {
+    // console.log(audioContext);
+    this.gainNode = audioContext.createGain();
+    this.gainNode.connect(audioContext.destination);
 
-        fetch(audioFilename)
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Unable to load sound file');
-                }
-                return res.arrayBuffer();
-            })
-            .then(rawBuffer => {
-                this.audioContext.decodeAudioData(rawBuffer, (decodedData) => {
-                    this.audioBuffer = decodedData;
-                }, err => {
-                    console.log('Unable to create audiobuffer' + err);
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        
-        this.gainNode = this.audioContext.createGain();
-        this.gainNode.connect(this.audioContext.destination);
+    this.playbackSpeed = 1.0;
+    this.sequence = Array(16).fill(false);
 
-        this.playBackSpeed = 1.0;
+    this.fetchAudioFile(audioFilename);
 
-        this.sequence = Array(16).fill(false);
-        
-        // Bind the play function before using as event listener callback
-        this.play = this.play.bind(this);
+    this.DOMElement = DOMElement;
 
-        this.DOMElement = DOMElement;
+    const playBtn = DOMElement.querySelector('.drum__play-btn');
+    playBtn.addEventListener('click', () => {
+        this.play();
+    });
 
-        const playBtn = DOMElement.querySelector('.drum__play-btn');
-        playBtn.addEventListener('click', this.play);
+    const gainSlider = DOMElement.querySelector('.drum__gain-slider');
+    gainSlider.addEventListener('input', (e) => {
+        this.setGain(e.target.value);
+    });
 
-        const gainSlider = DOMElement.querySelector('.drum__gain-slider');
-        gainSlider.addEventListener('input', (e) => {
-            this.setGain(e.target.value);
-        });
+    const pitchSlider = DOMElement.querySelector('.drum__pitch-slider');
+    pitchSlider.addEventListener('input', e => {
+        this.playbackSpeed = e.target.value;
+    });
 
-        const pitchSlider =DOMElement.querySelector('.drum__pitch-slider');
-        pitchSlider.addEventListener('input', e => {
-            this.playBackSpeed = e.target.value;
-        });
-
-        setCurrentDrum = setCurrentDrum.bind(this);
-        const selectBtn = DOMElement.querySelector('.drum__select-btn');
-        selectBtn.addEventListener('click', () => {
-            setCurrentDrum();
-        });
-        
-    }
-
-    setGain(newGain) {
-        this.gainNode.gain.value = newGain;
-    }
-
-    shouldPlay(beatNumber) {
-        if (this.sequence[beatNumber]) {
-            this.play();
-        }
-    }
-
-    setSequence(beatNumber) {
-        this.sequence[beatNumber] = !this.sequence[beatNumber];
-    } 
-
-    play() {
-        this.audioContext.resume();
-        const source = this.audioContext.createBufferSource();
-        source.buffer = this.audioBuffer;
-        source.playbackRate.value = this.playBackSpeed;
-        source.connect(this.gainNode);
-        source.start(0);
-    }    
+    setCurrentDrum = setCurrentDrum.bind(this);
+    const selectBtn = DOMElement.querySelector('.drum__select-btn');
+    selectBtn.addEventListener('click', () => {
+        setCurrentDrum();
+    });
 }
+
+Drum.prototype.setGain = function(newGain) {
+    this.gainNode.gain.value = newGain;
+};
+
+Drum.prototype.play = function() {
+    audioContext.resume();
+    const source = audioContext.createBufferSource();
+    source.buffer = this.audioBuffer;
+    source.playbackRate.value = this.playbackSpeed;
+    source.connect(this.gainNode);
+    source.start(0);
+};
+
+Drum.prototype.shouldPlay = function(beatNumber) {
+    if (this.sequence[beatNumber]) {
+        this.play();
+    }
+};
+
+Drum.prototype.setSequence = function(beatNumber) {
+    this.sequence[beatNumber] = !this.sequence[beatNumber];
+};
+
+Drum.prototype.fetchAudioFile = function(fileURL) {
+    fetch(fileURL)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Unable to load sound file');
+            }
+            return res.arrayBuffer();
+        })
+        .then(rawBuffer => audioContext.decodeAudioData(rawBuffer))
+        .then(decodedData => this.audioBuffer = decodedData)
+        .catch(error => {
+            console.log(error);
+        });
+};
 
 export default Drum;

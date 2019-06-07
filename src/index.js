@@ -3,10 +3,9 @@ import './styles/sequencer.css';
 import './styles/drum.css';
 
 import './setupAudioContext';
+
 import Clock from './Clock';
 import Drums from './setupDrums';
-
-
 
 let currentDrum = Drums[0];
 currentDrum.DOMElement.style.background = 'lightgreen';
@@ -39,13 +38,9 @@ sequencerPads.forEach((pad, i) => {
 });
 
 const indicators = document.querySelectorAll('.pad__indicator');
-let prevNote = 15;
-function uiUpdate(drawNote) {
-
+function uiUpdate(drawNote, prevNote) {
     indicators[drawNote].classList.add('pad__indicator--playing');
     indicators[prevNote].classList.remove('pad__indicator--playing');
-
-    prevNote = drawNote;
 }
 
 function audioUpdate(beatNumber) {
@@ -54,9 +49,8 @@ function audioUpdate(beatNumber) {
     });
 }
 
-
-
-const MainClock = new Clock(audioUpdate, uiUpdate, audioContext);
+// const MainClock = new Clock(audioUpdate, uiUpdate, audioContext);
+const MainClock = new Clock(audioUpdate, uiUpdate);
 
 const startBtn = document.querySelector('.start-btn');
 startBtn.addEventListener('click', (e) => {
@@ -85,4 +79,3 @@ document.querySelector('.tempo__slider').addEventListener('input', (e) => {
     MainClock.setTempo(e.target.value);
     tempoReadout.textContent = e.target.value + ' bpm';
 });
-
