@@ -4,33 +4,102 @@
 }
 
 .drum {
-    margin: 16px;
-    padding: 16px;
+    /*height: 100%;*/
+    margin: 0 16px;
+    padding: 0;
 
-    border: black 1px solid;
-    border-radius: 8px;
+    border: rgba(255, 255, 255, 0.1) 1px solid;
+    border-radius: 4px 4px 0 0;
+}
 
+.drum__name {
+    font-weight: bold;
+    margin: 0;
+    padding: 8px 0;
     text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .drum--active {
-    /*background: teal;*/
+    border-color: white;
+}
 
-    border: solid 2px teal;
-    box-shadow: 0 0 8px teal;
+.drum--active .drum__name {
+    color: green;
+
+    background: white;
+    text-shadow: 0 0 4px green;
+}
+
+.drum--active .drum__select-btn {
+    background: rgb(0,208,208);
+    background: radial-gradient(circle, rgba(0,208,208,1) 0%, rgba(0,87,101,1) 100%);
 }
 
 .drum__controls {
     display: flex;
     flex-direction: column;
 
-    /* text-align: left; */
+    margin: 0 16px;
 }
 
 .drum__slider-wrapper {
     margin: 16px 0;
 }
 
-.drum__play-btn, .drum__select-btn {
+.drum__gain-slider, .drum__pitch-slider {
+    -webkit-appearance: none;
+}
+
+
+.drum__play-btn {
+    height: 24px;
+
     margin: 8px 0;
+
+    border-radius: 0;
+    border: none;
+    background: white;
+}
+
+.drum__select-btn {
+    box-sizing: content-box;
+    /*width: 100%;*/
+    height: 24px;
+    margin: 8px 0;
+
+    -webkit-appearance: none;
+    /*border: solid black;*/
+    /*border-width: 0 2px 2px 0;*/
+    /*background: rgb(0,208,208);*/
+    /*background: radial-gradient(circle, rgba(0,208,208,1) 0%, rgba(0,87,101,1) 100%);*/
+    background: none;
+    border: rgba(0,87,101,1) solid 1px;
+    border-radius: 4px;
+    box-shadow: 2px 2px rgba(0,87,101,0.6);
+
+    outline: none;
+    cursor: pointer;
+}
+
+.drum__select-btn:active {
+    /*border: transparent 1px solid;*/
+    box-shadow: 0 0 black;
+    transform: translate(2px, 2px);
+}
+
+.drum__indicator {
+    width: 100%;
+    height: 2px;
+
+    border: solid 1px grey;
+    border-radius: 2px;
+    margin-bottom: 8px;
+}
+
+.drum__indicator--active {
+    background: rgb(211,222,0);
+    background: radial-gradient(circle, rgba(211,222,0,1) 0%, rgba(148,148,0,1) 100%);
+    box-shadow: 0 0 16px yellow;
 }

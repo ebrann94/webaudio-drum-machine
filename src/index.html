@@ -15,10 +15,10 @@
     </div>
    <div class="drums-container">
         <div id="kick" class="drum">
-            <p class="drum__name">Kick</p>
+            <p class="drum__name">KICK</p>
             <div class="drum__controls">
                 <div class="drum__slider-wrapper">
-                    <label for="gain-slider">Gain </label>
+                    <label for="gain-slider">Level </label>
                     <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
                 </div>
                 <div class="drum__slider-wrapper">
@@ -26,14 +26,15 @@
                     <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
                 </div>
                 <button id="play-kick" class="drum__play-btn">Play</button>
-                <button id="select-kick" class="drum__select-btn">Select</button>
+                <button id="select-kick" class="drum__select-btn"></button>
+                <div class="drum__indicator"></div>
             </div>
         </div>
         <div id="snare" class="drum">
-            <p class="drum__name">Snare</p>
+            <p class="drum__name">SNARE</p>
             <div class="drum__controls">
                 <div class="drum__slider-wrapper">
-                    <label for="gain-slider">Gain </label>
+                    <label for="gain-slider">Level </label>
                     <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
                 </div>
                 <div class="drum__slider-wrapper">
@@ -41,108 +42,114 @@
                     <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
                 </div>
                 <button id="play-snare" class="drum__play-btn">Play</button>
-                <button id="select-snare" class="drum__select-btn">Select</button>
+                <button id="select-snare" class="drum__select-btn"></button>
+                <div class="drum__indicator"></div>
             </div>
         </div>
         <div id="hihat" class="drum">
-            <p class="drum__name">Hi Hat</p>
+            <p class="drum__name">HI HAT</p>
             <div class="drum__controls">
                 <div class="drum__slider-wrapper">
-                    <label for="gain-slider">Gain: </label>
+                    <label for="gain-slider">Level </label>
                     <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
                 </div>
                 <div class="drum__slider-wrapper">
-                    <label for="pitch-slider">Pitch: </label>
+                    <label for="pitch-slider">Pitch </label>
                     <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
                 </div>
                 <button id="play-hihat" class="drum__play-btn">Play</button>
-                <button id="select-hihat" class="drum__select-btn">Select</button>
+                <button id="select-hihat" class="drum__select-btn"></button>
+                <div class="drum__indicator"></div>
             </div>
         </div>
    </div>
-    <ul>
-        <li class="pad">
-            <p class="pad__num">1</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">2</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">3</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">4</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">5</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">6</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">7</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">8</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">9</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">10</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">11</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">12</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">13</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">14</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">15</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-        <li class="pad">
-            <p class="pad__num">16</p>
-            <div class="pad__indicator"></div>
-            <div class="pad__btn"></div>
-        </li>
-    </ul>
-    <button class="start-btn">Start</button>
-    <button class="stop-btn">Stop</button>
+    <hr />
+    <div class="sequencer">
+        <div class="sequencer__controls">
+            <button class="sequencer__start-btn">START</button>
+        </div>
+        <ul class="sequencer__pad-list">
+            <li class="pad pad-group-1">
+                <p class="pad__num">1</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-1">
+                <p class="pad__num">2</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-1">
+                <p class="pad__num">3</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-1">
+                <p class="pad__num">4</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-2">
+                <p class="pad__num">5</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-2">
+                <p class="pad__num">6</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-2">
+                <p class="pad__num">7</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-2">
+                <p class="pad__num">8</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-3">
+                <p class="pad__num">9</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-3">
+                <p class="pad__num">10</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-3">
+                <p class="pad__num">11</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-3">
+                <p class="pad__num">12</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-4">
+                <p class="pad__num">13</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-4">
+                <p class="pad__num">14</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-4">
+                <p class="pad__num">15</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+            <li class="pad pad-group-4">
+                <p class="pad__num">16</p>
+                <div class="pad__indicator"></div>
+                <div class="pad__btn"></div>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

@@ -33,39 +33,57 @@ sequencerPads.forEach((pad, i) => {
 });
 
 const indicators = document.querySelectorAll('.pad__indicator');
-function uiUpdate(drawNote, prevNote) {
+function clockUiUpdate(drawNote, prevNote) {
     indicators[drawNote].classList.add('pad__indicator--playing');
     indicators[prevNote].classList.remove('pad__indicator--playing');
+
+    Drums.forEach(drum => {
+        if (drum.sequence[drawNote]) {
+            drum.indicator.classList.add('drum__indicator--active');
+            setTimeout(() => {
+                drum.indicator.classList.remove('drum__indicator--active');
+            }, 100);
+        }
+    });
 }
 
-function audioUpdate(beatNumber) {
+function clockAudioUpdate(beatNumber) {
     Drums.forEach(drum => {
         drum.shouldPlay(beatNumber);
     });
 }
 
-// const MainClock = new Clock(audioUpdate, uiUpdate, audioContext);
-const MainClock = new Clock(audioUpdate, uiUpdate);
+const MainClock = new Clock(clockAudioUpdate, clockUiUpdate);
 
-const startBtn = document.querySelector('.start-btn');
+const toggleRunClock = () => {
+    if (MainClock.isPlaying) {
+        MainClock.stop();
+        startBtn.textContent = 'START';
+        startBtn.classList.remove('sequencer__start-btn--playing');
+    } else {
+        MainClock.start();
+        startBtn.textContent ='STOP';
+        startBtn.classList.add('sequencer__start-btn--playing');
+    }
+};
+
+const startBtn = document.querySelector('.sequencer__start-btn');
 startBtn.addEventListener('click', (e) => {
-    MainClock.start();
+    toggleRunClock();
     e.target.blur();
 });
 
-const stopBtn = document.querySelector('.stop-btn');
-stopBtn.addEventListener('click', (e) => {
-    MainClock.stop();
-    e.target.blur();
+window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        startBtn.classList.add('start-btn-active');
+    }
 });
 
 window.addEventListener('keyup', (e) => {
     if (e.code === 'Space') {
-        if (MainClock.isPlaying) {
-            MainClock.stop();
-        } else {
-            MainClock.start();
-        }
+        startBtn.classList.remove('start-btn-active');
+        toggleRunClock();
     }
 });
 

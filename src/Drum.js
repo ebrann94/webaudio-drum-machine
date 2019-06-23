@@ -29,6 +29,8 @@ function Drum(audioFilename, DOMElement) {
     selectBtn.addEventListener('click', () => {
         currentDrum.set(this);
     });
+
+    this.indicator = DOMElement.querySelector('.drum__indicator');
 }
 
 Drum.prototype.setGain = function(newGain) {
@@ -62,8 +64,13 @@ Drum.prototype.fetchAudioFile = function(fileURL) {
             }
             return res.arrayBuffer();
         })
-        .then(rawBuffer => audioCtx.decodeAudioData(rawBuffer))
-        .then(decodedData => this.audioBuffer = decodedData)
+        .then(rawBuffer => {
+            audioCtx.decodeAudioData(rawBuffer, (decodedData) => {
+                this.audioBuffer = decodedData;
+            }, (error) => {
+                console.log(error);
+            });
+        })
         .catch(error => {
             console.log(error);
         });

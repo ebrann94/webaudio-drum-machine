@@ -13,6 +13,11 @@ function Clock(audioCallback, uiCallback) {
 
     this.audioCallback = audioCallback;
     this.uiCallback = uiCallback;
+
+   // Bind all prototype methods ti this
+    for (let key in this.__proto__) {
+        this.__proto__[key] = this.__proto__[key].bind(this);
+    }
 }
 
 Clock.prototype.setTempo = function(newTempo) {
@@ -28,7 +33,7 @@ Clock.prototype.start = function() {
     this.nextNoteTime = audioCtx.currentTime + this.scheduleAheadTime;
     this.notesInQueue = [];
     this.scheduler();
-    requestAnimationFrame(this.draw.bind(this));
+    requestAnimationFrame(this.draw);
 };
 
 Clock.prototype.stop = function() {
@@ -59,7 +64,7 @@ Clock.prototype.scheduler = function() {
     }
     // If the nextNoteTime has not been passed it will trigger another timeout.
     if (this.isPlaying) {
-        setTimeout(this.scheduler.bind(this), this.lookahead);
+        setTimeout(this.scheduler, this.lookahead);
     }
 };
 
@@ -79,7 +84,7 @@ Clock.prototype.draw = function() {
     }
 
     if (this.isPlaying) {
-        requestAnimationFrame(this.draw.bind(this));
+        requestAnimationFrame(this.draw);
     }
 };
 

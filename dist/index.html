@@ -4,35 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Drum Machine</title>
+    <title>Ethan Brann | Drum Machine</title>
 </head>
 <body>
-    <div>
-        <button id="play-kick">Play</button>
-        <button id="play-snare">Play</button>
+    <h1>Browser Drum Machine</h1>
+    <div class="tempo-controls">
+        <label for="tempo-slider">Tempo: </label>
+        <input type="range" min="0" max="200" step="1" value="128" name="tempo-slider" class="tempo__slider">
+        <p class="tempo-readout">128 bpm</p>
     </div>
-    <div>
-        <button id="choose-kick">Choose Kick</button>
-        <button id="choose-snare">Choose Snare</button>
-    </div>
-    <p id="beatReadout"></p>
+   <div class="drums-container">
+        <div id="kick" class="drum">
+            <p class="drum__name">Kick</p>
+            <div class="drum__controls">
+                <div class="drum__slider-wrapper">
+                    <label for="gain-slider">Gain </label>
+                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
+                </div>
+                <div class="drum__slider-wrapper">
+                    <label for="pitch-slider">Pitch </label>
+                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
+                </div>
+                <button id="play-kick" class="drum__play-btn">Play</button>
+                <button id="select-kick" class="drum__select-btn">Select</button>
+            </div>
+        </div>
+        <div id="snare" class="drum">
+            <p class="drum__name">Snare</p>
+            <div class="drum__controls">
+                <div class="drum__slider-wrapper">
+                    <label for="gain-slider">Gain </label>
+                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
+                </div>
+                <div class="drum__slider-wrapper">
+                    <label for="pitch-slider">Pitch </label>
+                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
+                </div>
+                <button id="play-snare" class="drum__play-btn">Play</button>
+                <button id="select-snare" class="drum__select-btn">Select</button>
+            </div>
+        </div>
+        <div id="hihat" class="drum">
+            <p class="drum__name">Hi Hat</p>
+            <div class="drum__controls">
+                <div class="drum__slider-wrapper">
+                    <label for="gain-slider">Gain: </label>
+                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__gain-slider">
+                </div>
+                <div class="drum__slider-wrapper">
+                    <label for="pitch-slider">Pitch: </label>
+                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__pitch-slider">
+                </div>
+                <button id="play-hihat" class="drum__play-btn">Play</button>
+                <button id="select-hihat" class="drum__select-btn">Select</button>
+            </div>
+        </div>
+   </div>
     <ul>
-        <li class="sequencer__beat">1</li>
-        <li class="sequencer__beat">2</li>
-        <li class="sequencer__beat">3</li>
-        <li class="sequencer__beat">4</li>
-        <li class="sequencer__beat">5</li>
-        <li class="sequencer__beat">6</li>
-        <li class="sequencer__beat">7</li>
-        <li class="sequencer__beat">8</li>
-        <li class="sequencer__beat">9</li>
-        <li class="sequencer__beat">10</li>
-        <li class="sequencer__beat">11</li>
-        <li class="sequencer__beat">12</li>
-        <li class="sequencer__beat">13</li>
-        <li class="sequencer__beat">14</li>
-        <li class="sequencer__beat">15</li>
-        <li class="sequencer__beat">16</li>
+        <li class="pad">
+            <p class="pad__num">1</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">2</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">3</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">4</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">5</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">6</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">7</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">8</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">9</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">10</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">11</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">12</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">13</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">14</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">15</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
+        <li class="pad">
+            <p class="pad__num">16</p>
+            <div class="pad__indicator"></div>
+            <div class="pad__btn"></div>
+        </li>
     </ul>
     <button class="start-btn">Start</button>
     <button class="stop-btn">Stop</button>
