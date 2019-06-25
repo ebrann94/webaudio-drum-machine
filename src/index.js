@@ -1,6 +1,4 @@
-import './styles/base.css';
-import './styles/sequencer.css';
-import './styles/drum.css';
+import './styles/main.scss';
 
 import createAudioContext from './setupAudioContext';
 import CurrentDrum from './CurrentDrum';
@@ -34,14 +32,14 @@ sequencerPads.forEach((pad, i) => {
 
 const indicators = document.querySelectorAll('.pad__indicator');
 function clockUiUpdate(drawNote, prevNote) {
-    indicators[drawNote].classList.add('pad__indicator--playing');
-    indicators[prevNote].classList.remove('pad__indicator--playing');
+    indicators[drawNote].classList.add('indicator-on');
+    indicators[prevNote].classList.remove('indicator-on');
 
     Drums.forEach(drum => {
         if (drum.sequence[drawNote]) {
-            drum.indicator.classList.add('drum__indicator--active');
+            drum.indicator.classList.add('indicator-on');
             setTimeout(() => {
-                drum.indicator.classList.remove('drum__indicator--active');
+                drum.indicator.classList.remove('indicator-on');
             }, 100);
         }
     });

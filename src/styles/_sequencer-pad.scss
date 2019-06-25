@@ -1,0 +1,58 @@
+.pad {
+    cursor: pointer;
+    text-align: center;
+}
+
+.pad__btn {
+    width: 32px;
+    height: 48px;
+
+    margin: 0;
+    padding: 4px 2px;
+    border-radius: 4px;
+}
+
+@mixin pad ($class, $pad-colour) {
+    .#{$class} {
+        .pad__btn {
+            color: $pad-colour;
+            border: solid 1px $pad-colour;
+        }
+        .pad__btn--will-play {
+            background: $pad-colour;
+        }
+    }
+}
+
+$group-1-colour: red;
+$group-2-colour: darkorange;
+$group-3-colour: yellow;
+$group-4-colour: lawngreen;
+
+@include pad(pad-group-1, $group-1-colour);
+@include pad(pad-group-2, $group-2-colour);
+@include pad(pad-group-3, $group-3-colour);
+@include pad(pad-group-4, $group-4-colour);
+
+.pad__num {
+    margin: 0 0 8px 0;
+}
+
+.pad__indicator {
+    height: 4px;
+    width: 80%;
+
+    margin: 0 auto;
+
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    background: rgba(51, 51, 55, 1);
+}
+
+.indicator-on {
+    background: rgb(211,222,0);
+    background: radial-gradient(ellipse, rgba(240,240,0,1) 0%, rgba(180,180,0,1) 100%);
+    box-shadow: 0 0 16px yellow;
+}
+
