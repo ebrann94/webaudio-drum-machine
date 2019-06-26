@@ -1,4 +1,4 @@
-function Drum(audioFilename, DOMElement) {
+function Drum(audioFilename) {
     // console.log(audioContext);
     this.gainNode = audioCtx.createGain();
     this.gainNode.connect(audioCtx.destination);
@@ -7,30 +7,6 @@ function Drum(audioFilename, DOMElement) {
     this.sequence = Array(16).fill(false);
 
     this.fetchAudioFile(audioFilename);
-
-    this.DOMElement = DOMElement;
-
-    const playBtn = DOMElement.querySelector('.drum__play-btn');
-    playBtn.addEventListener('click', () => {
-        this.play();
-    });
-
-    const gainSlider = DOMElement.querySelector('.drum__gain-slider');
-    gainSlider.addEventListener('input', (e) => {
-        this.setGain(e.target.value);
-    });
-
-    const pitchSlider = DOMElement.querySelector('.drum__pitch-slider');
-    pitchSlider.addEventListener('input', e => {
-        this.playbackSpeed = e.target.value;
-    });
-
-    const selectBtn = DOMElement.querySelector('.drum__select-btn');
-    selectBtn.addEventListener('click', () => {
-        currentDrum.set(this);
-    });
-
-    this.indicator = DOMElement.querySelector('.drum__indicator');
 }
 
 Drum.prototype.setGain = function(newGain) {

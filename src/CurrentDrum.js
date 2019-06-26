@@ -1,14 +1,19 @@
 import { renderSequencerPads } from "./index";
+import { Drums } from './index';
 
 function CurrentDrum(drum) {
     this.drum = drum;
-    this.drum.DOMElement.classList.add('drum--active');
+    this.domEl = null;
 }
 
-CurrentDrum.prototype.set = function(newDrum) {
-    this.drum.DOMElement.classList.remove('drum--active');
-    this.drum = newDrum;
-    this.drum.DOMElement.classList.add('drum--active');
+CurrentDrum.prototype.set = function(drumElement) {
+    const newDrumName = drumElement.dataset.name;
+    if (this.domEl) {
+        this.domEl.classList.remove('drum--selected');
+    }
+    this.drum = Drums[newDrumName];
+    drumElement.classList.add('drum--selected');
+    this.domEl = drumElement;
     renderSequencerPads();
 };
 

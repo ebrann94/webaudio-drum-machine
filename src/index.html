@@ -14,54 +14,80 @@
         <p class="tempo-readout">128 bpm</p>
     </div>
    <div class="drums-container">
-        <div id="kick" class="drum">
-            <p class="drum__name">KICK</p>
-            <div class="drum__controls">
-                <div class="drum__slider-wrapper">
-                    <label for="gain-slider">Level </label>
-                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__slider drum__gain-slider">
-                </div>
-                <div class="drum__slider-wrapper">
-                    <label for="pitch-slider">Pitch </label>
-                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__slider drum__pitch-slider">
-                </div>
-                <button id="play-kick" class="drum__play-btn">Play</button>
-                <button id="select-kick" class="drum__select-btn"></button>
-                <div class="drum__indicator"></div>
-            </div>
-        </div>
-        <div id="snare" class="drum">
-            <p class="drum__name">SNARE</p>
-            <div class="drum__controls">
-                <div class="drum__slider-wrapper">
-                    <label for="gain-slider">Level </label>
-                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__slider drum__gain-slider">
-                </div>
-                <div class="drum__slider-wrapper">
-                    <label for="pitch-slider">Pitch </label>
-                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__slider drum__pitch-slider">
-                </div>
-                <button id="play-snare" class="drum__play-btn">Play</button>
-                <button id="select-snare" class="drum__select-btn"></button>
-                <div class="drum__indicator"></div>
-            </div>
-        </div>
-        <div id="hihat" class="drum">
-            <p class="drum__name">HI HAT</p>
-            <div class="drum__controls">
-                <div class="drum__slider-wrapper">
-                    <label for="gain-slider">Level </label>
-                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__slider drum__gain-slider">
-                </div>
-                <div class="drum__slider-wrapper">
-                    <label for="pitch-slider">Pitch </label>
-                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__slider drum__pitch-slider">
-                </div>
-                <button id="play-hihat" class="drum__play-btn">Play</button>
-                <button id="select-hihat" class="drum__select-btn"></button>
-                <div class="drum__indicator"></div>
-            </div>
-        </div>
+       <ul class="drum-list">
+           <li class="drum" data-name="Kick">
+               <span class="drum__indicator"></span>
+               <span class="drum__name">KICK</span>
+           </li>
+           <li class="drum" data-name="Snare">
+               <span class="drum__indicator"></span>
+               <span class="drum__name">SNARE</span>
+           </li>
+           <li class="drum" data-name="HiHat">
+               <span class="drum__indicator"></span>
+               <span class="drum__name">HI HAT</span>
+           </li>
+       </ul>
+       <div class="drum__controls">
+           <h1>DRUM CONTROLS</h1>
+           <div class="drum__slider-wrapper">
+               <label for="gain-slider">Level </label>
+               <input type="range" min="0" max="1" step="0.01" value="1" id="gain-slider" class="drum__slider drum__gain-slider">
+           </div>
+           <div class="drum__slider-wrapper">
+               <label for="pitch-slider">Pitch </label>
+               <input type="range" min="0" max="2" step="0.01" value="1" id="pitch-slider" class="drum__slider drum__pitch-slider">
+           </div>
+           <button id="play-kick" class="drum__play-btn">Play</button>
+       </div>
+<!--        <div id="kick" class="drum">-->
+<!--            <p class="drum__name">KICK</p>-->
+<!--            <div class="drum__controls">-->
+<!--                <div class="drum__slider-wrapper">-->
+<!--                    <label for="gain-slider">Level </label>-->
+<!--                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__slider drum__gain-slider">-->
+<!--                </div>-->
+<!--                <div class="drum__slider-wrapper">-->
+<!--                    <label for="pitch-slider">Pitch </label>-->
+<!--                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__slider drum__pitch-slider">-->
+<!--                </div>-->
+<!--                <button id="play-kick" class="drum__play-btn">Play</button>-->
+<!--                <button id="select-kick" class="drum__select-btn"></button>-->
+<!--                <div class="drum__indicator"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="snare" class="drum">-->
+<!--            <p class="drum__name">SNARE</p>-->
+<!--            <div class="drum__controls">-->
+<!--                <div class="drum__slider-wrapper">-->
+<!--                    <label for="gain-slider">Level </label>-->
+<!--                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__slider drum__gain-slider">-->
+<!--                </div>-->
+<!--                <div class="drum__slider-wrapper">-->
+<!--                    <label for="pitch-slider">Pitch </label>-->
+<!--                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__slider drum__pitch-slider">-->
+<!--                </div>-->
+<!--                <button id="play-snare" class="drum__play-btn">Play</button>-->
+<!--                <button id="select-snare" class="drum__select-btn"></button>-->
+<!--                <div class="drum__indicator"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="hihat" class="drum">-->
+<!--            <p class="drum__name">HI HAT</p>-->
+<!--            <div class="drum__controls">-->
+<!--                <div class="drum__slider-wrapper">-->
+<!--                    <label for="gain-slider">Level </label>-->
+<!--                    <input type="range" min="0" max="1" step="0.01" value="1" name="gain-slider" class="drum__slider drum__gain-slider">-->
+<!--                </div>-->
+<!--                <div class="drum__slider-wrapper">-->
+<!--                    <label for="pitch-slider">Pitch </label>-->
+<!--                    <input type="range" min="0" max="2" step="0.01" value="1" name="pitch-slider" class="drum__slider drum__pitch-slider">-->
+<!--                </div>-->
+<!--                <button id="play-hihat" class="drum__play-btn">Play</button>-->
+<!--                <button id="select-hihat" class="drum__select-btn"></button>-->
+<!--                <div class="drum__indicator"></div>-->
+<!--            </div>-->
+<!--        </div>-->
    </div>
     <hr />
     <div class="sequencer">

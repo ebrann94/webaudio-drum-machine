@@ -7,48 +7,64 @@ import setupDrums from './setupDrums';
 
 window.audioCtx = createAudioContext();
 
-const Drums = setupDrums();
-window.currentDrum = new CurrentDrum(Drums[0]);
+const drumListElements = {
+    drums: document.querySelectorAll('.drum'),
+    indicators: document.querySelectorAll('.drum__indicator')
+};
 
-const sequencerPads = document.querySelectorAll('.pad');
-const padBtns = document.querySelectorAll('.pad__btn');
+const drumControlElements = {
+    playBtn: document.querySelector('.drum__play-btn'),
+    gainSlider: document.querySelector('.drum__gain-slider'),
+    pitchSlider: document.querySelector('.drum__pitch-slider')
+};
+
+const sequencerElements = {
+    startBtn: document.querySelector('.sequencer__start-btn'),
+    pads: document.querySelectorAll('.pad'),
+    padBtns: document.querySelectorAll('.pad__btn'),
+    indicators: document.querySelectorAll('.pad__indicator')
+};
+
+export const Drums = setupDrums();
+window.currentDrum = new CurrentDrum(Drums['Kick']);
+
 // Re-renders the sequencers pads to show the current drum's sequence
 export function renderSequencerPads() {
-    sequencerPads.forEach((pad, i) => {
+    sequencerElements.pads.forEach((pad, i) => {
         if (currentDrum.drum.sequence[i]) {
-            padBtns[i].classList.add('pad__btn--will-play');
+            sequencerElements.padBtns[i].classList.add('pad__btn--will-play');
         } else {
-            padBtns[i].classList.remove('pad__btn--will-play');
+            sequencerElements.padBtns[i].classList.remove('pad__btn--will-play');
         }
     });
 }
 
-sequencerPads.forEach((pad, i) => {
+sequencerElements.pads.forEach((pad, i) => {
     pad.addEventListener('click', () => {
         currentDrum.drum.setSequence(i);
         renderSequencerPads();
     });
 });
 
-const indicators = document.querySelectorAll('.pad__indicator');
 function clockUiUpdate(drawNote, prevNote) {
-    indicators[drawNote].classList.add('indicator-on');
-    indicators[prevNote].classList.remove('indicator-on');
+    sequencerElements.indicators[drawNote].classList.add('indicator-on');
+    sequencerElements.indicators[prevNote].classList.remove('indicator-on');
 
-    Drums.forEach(drum => {
-        if (drum.sequence[drawNote]) {
-            drum.indicator.classList.add('indicator-on');
+    drumListElements.indicators.forEach((indicator, i) => {
+        const drumName = indicator.closest('.drum').dataset.name;
+        if (Drums[drumName].sequence[drawNote]) {
+            indicator.classList.add('indicator-on');
             setTimeout(() => {
-                drum.indicator.classList.remove('indicator-on');
+                indicator.classList.remove('indicator-on');
             }, 100);
         }
     });
 }
 
 function clockAudioUpdate(beatNumber) {
-    Drums.forEach(drum => {
-        drum.shouldPlay(beatNumber);
-    });
+    for (let drum in Drums) {
+        Drums[drum].shouldPlay(beatNumber);
+    }
 }
 
 const MainClock = new Clock(clockAudioUpdate, clockUiUpdate);
@@ -56,17 +72,16 @@ const MainClock = new Clock(clockAudioUpdate, clockUiUpdate);
 const toggleRunClock = () => {
     if (MainClock.isPlaying) {
         MainClock.stop();
-        startBtn.textContent = 'START';
-        startBtn.classList.remove('sequencer__start-btn--playing');
+        sequencerElements.startBtn.textContent = 'START';
+        sequencerElements.startBtn.classList.remove('sequencer__start-btn--playing');
     } else {
         MainClock.start();
-        startBtn.textContent ='STOP';
-        startBtn.classList.add('sequencer__start-btn--playing');
+        sequencerElements.startBtn.textContent ='STOP';
+        sequencerElements.startBtn.classList.add('sequencer__start-btn--playing');
     }
 };
 
-const startBtn = document.querySelector('.sequencer__start-btn');
-startBtn.addEventListener('click', (e) => {
+sequencerElements.startBtn.addEventListener('click', (e) => {
     toggleRunClock();
     e.target.blur();
 });
@@ -74,15 +89,33 @@ startBtn.addEventListener('click', (e) => {
 window.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
         e.preventDefault();
-        startBtn.classList.add('start-btn-active');
+        sequencerElements.startBtn.classList.add('start-btn-active');
     }
 });
 
 window.addEventListener('keyup', (e) => {
     if (e.code === 'Space') {
-        startBtn.classList.remove('start-btn-active');
+        sequencerElements.startBtn.classList.remove('start-btn-active');
         toggleRunClock();
     }
+});
+
+drumControlElements.playBtn.addEventListener('click', () => {
+   currentDrum.drum.play();
+});
+
+drumControlElements.gainSlider.addEventListener('input', (e) => {
+    currentDrum.drum.setGain(e.target.value);
+});
+
+drumControlElements.pitchSlider.addEventListener('input', (e) => {
+    currentDrum.drum.playbackSpeed = e.target.value;
+});
+
+drumListElements.drums.forEach(drum => {
+    drum.addEventListener('click', () => {
+        currentDrum.set(drum);
+    });
 });
 
 const tempoReadout = document.querySelector('.tempo-readout');
