@@ -1,37 +1,52 @@
 .drums-container {
     display: flex;
+    padding: 0 16px;
+    h1 {
+        //margin: 0 0 16px 0;
+        //padding: 0 16px;
+        margin: 0;
+        border-bottom: 1px solid white;
+    }
+}
+
+.drum-list-container {
+    border-right: 1px solid white;
 }
 
 .drum-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 
     width: 256px;
-    border-right: 1px solid white;
 }
 
 .drum {
-    margin: 0 16px;
-    padding: 0;
+    margin: 0;
+    padding: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
 }
 
 .drum--selected {
     color: green;
+    background: white;
 }
 
 .drum__name {
     font-weight: bold;
-    //margin: 0;
-    //padding: 8px 0;
-    //text-align: center;
-    //background: rgba(255, 255, 255, 0.1);
-    //color: rgba(0, 0, 0, 0.8);
 }
 
 .drum__indicator {
     display: inline-block;
     width: 8px;
     height: 8px;
+
+    background: rgba(55, 55, 55, 1);
 
     border: solid 1px grey;
     border-radius: 50%;

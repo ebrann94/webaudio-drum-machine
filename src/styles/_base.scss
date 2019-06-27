@@ -8,13 +8,36 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    margin: 0;
+
     background: rgba(0, 0, 5, 0.8);
     /*background: linear-gradient(to right, rgb(58, 58, 70), rgb(20, 20, 23));*/
 }
 
+header {
+    background: white;
+    color: black;
+
+    margin-bottom: 16px;
+    padding: 0 16px;
+    h1 {
+        //margin: 8px;
+        //line-height: 1;
+    }
+    //border: white 1px solid;
+}
+
+h1 {
+    margin:0;
+}
+
 hr {
+    height: 1px;
     margin: 16px;
-    border-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    //border-color: rgba(255, 255, 255, 0.2);
+    //border: 1px solid white;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 button {

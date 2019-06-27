@@ -1,8 +1,8 @@
-import { renderSequencerPads } from "./index";
+import { renderSequencerPads } from "./views/sequencer-view";
 import { Drums } from './index';
 
 function CurrentDrum(drum) {
-    this.drum = drum;
+    this.drum = drum || null;
     this.domEl = null;
 }
 
@@ -14,7 +14,7 @@ CurrentDrum.prototype.set = function(drumElement) {
     this.drum = Drums[newDrumName];
     drumElement.classList.add('drum--selected');
     this.domEl = drumElement;
-    renderSequencerPads();
+    renderSequencerPads(this.drum.sequence);
 };
 
 export default CurrentDrum;

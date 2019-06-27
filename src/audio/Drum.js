@@ -52,4 +52,11 @@ Drum.prototype.fetchAudioFile = function(fileURL) {
         });
 };
 
+Drum.prototype.getConfig = function() {
+    return {
+        level: this.gainNode.gain.value,
+        pitch: this.playbackSpeed
+    }
+};
+
 export default Drum;

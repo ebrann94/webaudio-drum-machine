@@ -1,69 +1,54 @@
 import './styles/main.scss';
 
-import createAudioContext from './setupAudioContext';
+import createAudioContext from './audio/setupAudioContext';
 import CurrentDrum from './CurrentDrum';
-import Clock from './Clock';
-import setupDrums from './setupDrums';
+import Clock from './audio/Clock';
+import setupDrums from './audio/setupDrums';
+import  {
+    drumListElements,
+    drumControlElements,
+    sequencerElements,
+    tempoElements
+} from './views/base';
+import { renderSequencerPads, renderSequencerIndicators } from './views/sequencer-view';
+import { renderDrumIndicators, flashIndicator } from './views/drum-list-view';
+import { setControls } from "./views/drum-controls";
 
 window.audioCtx = createAudioContext();
 
-const drumListElements = {
-    drums: document.querySelectorAll('.drum'),
-    indicators: document.querySelectorAll('.drum__indicator')
-};
-
-const drumControlElements = {
-    playBtn: document.querySelector('.drum__play-btn'),
-    gainSlider: document.querySelector('.drum__gain-slider'),
-    pitchSlider: document.querySelector('.drum__pitch-slider')
-};
-
-const sequencerElements = {
-    startBtn: document.querySelector('.sequencer__start-btn'),
-    pads: document.querySelectorAll('.pad'),
-    padBtns: document.querySelectorAll('.pad__btn'),
-    indicators: document.querySelectorAll('.pad__indicator')
-};
-
 export const Drums = setupDrums();
-window.currentDrum = new CurrentDrum(Drums['Kick']);
+window.currentDrum = new CurrentDrum();
+currentDrum.set(document.querySelector('.drum[data-name="Kick"]'));
 
-// Re-renders the sequencers pads to show the current drum's sequence
-export function renderSequencerPads() {
-    sequencerElements.pads.forEach((pad, i) => {
-        if (currentDrum.drum.sequence[i]) {
-            sequencerElements.padBtns[i].classList.add('pad__btn--will-play');
-        } else {
-            sequencerElements.padBtns[i].classList.remove('pad__btn--will-play');
-        }
-    });
-}
+const state = {
+    currentDrum: Drums['Kick'],
+    currentDrumKey: 'Kick'
+};
+//
+// const setCurrentDrum = (drumName) => {
+//     state.currentDrum = Drums[drumName];
+// };
 
 sequencerElements.pads.forEach((pad, i) => {
     pad.addEventListener('click', () => {
         currentDrum.drum.setSequence(i);
-        renderSequencerPads();
+        renderSequencerPads(currentDrum.drum.sequence);
     });
 });
 
 function clockUiUpdate(drawNote, prevNote) {
-    sequencerElements.indicators[drawNote].classList.add('indicator-on');
-    sequencerElements.indicators[prevNote].classList.remove('indicator-on');
+    renderSequencerIndicators(drawNote, prevNote);
 
-    drumListElements.indicators.forEach((indicator, i) => {
-        const drumName = indicator.closest('.drum').dataset.name;
-        if (Drums[drumName].sequence[drawNote]) {
-            indicator.classList.add('indicator-on');
-            setTimeout(() => {
-                indicator.classList.remove('indicator-on');
-            }, 100);
+    for (let key in Drums) {
+        if (Drums[key].sequence[drawNote]) {
+            flashIndicator(key);
         }
-    });
+    }
 }
 
 function clockAudioUpdate(beatNumber) {
-    for (let drum in Drums) {
-        Drums[drum].shouldPlay(beatNumber);
+    for (let key in Drums) {
+        Drums[key].shouldPlay(beatNumber);
     }
 }
 
@@ -102,6 +87,7 @@ window.addEventListener('keyup', (e) => {
 
 drumControlElements.playBtn.addEventListener('click', () => {
    currentDrum.drum.play();
+   flashIndicator(state.currentDrumKey);
 });
 
 drumControlElements.gainSlider.addEventListener('input', (e) => {
@@ -115,11 +101,12 @@ drumControlElements.pitchSlider.addEventListener('input', (e) => {
 drumListElements.drums.forEach(drum => {
     drum.addEventListener('click', () => {
         currentDrum.set(drum);
+        setControls(currentDrum.drum.gainNode.gain.value, currentDrum.drum.playbackSpeed);
+        state.currentDrumKey = drum.dataset.name;
     });
 });
 
-const tempoReadout = document.querySelector('.tempo-readout');
-document.querySelector('.tempo__slider').addEventListener('input', (e) => {
+tempoElements.tempoSlider.addEventListener('input', (e) => {
     MainClock.setTempo(e.target.value);
-    tempoReadout.textContent = e.target.value + ' bpm';
+    tempoElements.readout.textContent = e.target.value + ' bpm';
 });

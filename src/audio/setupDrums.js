@@ -4,12 +4,16 @@ import Drum from './Drum';
 function setupDrums() {
     const Kick = new Drum('sounds/909-kick.wav');
     const Snare = new Drum('sounds/909-snare.wav');
-    const HiHat = new Drum('sounds/909-hihat.wav');
+    const HiHatOpen = new Drum('sounds/909-hihat-open.wav');
+    const HiHatClosed = new Drum('sounds/909-hihat-closed.wav');
+    const Clap = new Drum('sounds/909-clap.wav');
 
     return {
         Kick,
         Snare,
-        HiHat
+        HiHatOpen,
+        HiHatClosed,
+        Clap
     }
 }
 

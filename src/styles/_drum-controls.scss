@@ -1,6 +1,32 @@
-.drum__controls {
-    display: flex;
-    flex-direction: column;
+.drum-controls-container {
+    flex-grow: 1;
 
-    margin: 0 16px;
+    h1 {
+        padding: 0 16px;
+    }
+}
+
+.drum__controls {
+    margin: 0;
+    padding: 0 16px;
+    flex-grow: 1;
+}
+
+.drum__play-btn {
+    margin-top: 16px;
+    width: 96px;
+    height: 24px;
+    border: none;
+    border-radius: 4px
+}
+
+.drum__slider-wrapper {
+    margin: 16px 0;
+}
+
+.drum__slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 128px;
 }
