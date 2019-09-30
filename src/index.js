@@ -2,7 +2,7 @@ import './styles/main.scss';
 
 import createAudioContext from './audio/setupAudioContext';
 import CurrentDrum from './CurrentDrum';
-import Clock from './audio/Clock';
+import createClock from './audio/Clock';
 import setupDrums from './audio/setupDrums';
 import  {
     drumListElements,
@@ -52,10 +52,11 @@ function clockAudioUpdate(beatNumber) {
     }
 }
 
-const MainClock = new Clock(clockAudioUpdate, clockUiUpdate);
+// const MainClock = new Clock(clockAudioUpdate, clockUiUpdate);
+const MainClock = createClock(clockAudioUpdate, clockUiUpdate, audioCtx);
 
 const toggleRunClock = () => {
-    if (MainClock.isPlaying) {
+    if (MainClock.isPlaying()) {
         MainClock.stop();
         sequencerElements.startBtn.textContent = 'START';
         sequencerElements.startBtn.classList.remove('sequencer__start-btn--playing');

@@ -34,7 +34,7 @@ export const tempoElements = {
     tempoSlider: document.querySelector('.tempo__slider')
 };
 
-export const  clockUiUpdate = (drawNote, prevNote) => {
+export const clockUiUpdate = (drawNote, prevNote) => {
     sequencerElements.indicators[drawNote].classList.add('indicator-on');
     sequencerElements.indicators[prevNote].classList.remove('indicator-on');
 
